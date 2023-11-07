@@ -22,7 +22,6 @@ void PlayerMovementSystem::operator()(Registry &registry, SparseArray<PositionCo
 
     if (inputs.shoot)
       position.move(Vector2D<double>(0, -20));
-    else
-      position.move(Vector2D<double>(0, 5));
+    position.move(Vector2D<double>(0, 5));
   }
 }

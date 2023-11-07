@@ -20,6 +20,6 @@ void RectangleSystem::operator()(Registry &registry, SparseArray<PositionCompone
     Vector2D<double> size = std::get<RectangleComponent&>(player).getSize();
     RGraphic::RColor_t color = std::get<RectangleComponent&>(player).getColor();
 
-    _lib->drawRectangle({position._x, position._y, size._x, size._y}, color);
+    _lib->drawRectangle({position._x - (size._x / 2), position._y - (size._y / 2), size._x, size._y}, color);
   }
 }
