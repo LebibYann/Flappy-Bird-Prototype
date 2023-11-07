@@ -37,8 +37,8 @@ void RGraphic::SfmlGraphic::setVolume(double volume)
 
 bool RGraphic::SfmlGraphic::windowShouldClose()
 {
-    if (this->_window.isOpen())
-        return (false);
+    if (!this->_window.isOpen())
+        return (true);
     this->_window.pollEvent(this->_event);
     return (this->_event.type == sf::Event::Closed);
 }
@@ -123,4 +123,5 @@ void RGraphic::SfmlGraphic::unloadMusic(RGraphic::RMusic rmusic)
 
 RGraphic::RInputs_t RGraphic::SfmlGraphic::getInputs()
 {
+    return (RGraphic::RInputs_t());
 }

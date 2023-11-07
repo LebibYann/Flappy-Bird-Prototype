@@ -20,7 +20,7 @@ int main(void)
     TextSystem textSystem(sgraphic);
     InputBoxSystem inputBoxSystem(sgraphic);
     TextureSystem textureSystem(sgraphic);
-    sgraphic->openWindow(1920, 1080, "R-Type");
+    sgraphic->openWindow(1920, 1080, "Flappy Bird");
     SceneManagerSystem sceneManager(registry, sgraphic);
 
     registry.registerComponent<PositionComponent>(destroyPosition);
@@ -49,7 +49,7 @@ int main(void)
     registry.addSystem<PositionComponent, DropDownButtonComponent>(dropDownButtonSystem);
     registry.addSystem(sceneManager);
     registry.addSystem(EndFrameSystem(sgraphic));
-    
+
     sceneManager.changeScene(registry, "GameScene");
 
     registry.runLoop();

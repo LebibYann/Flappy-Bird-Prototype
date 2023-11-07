@@ -3,11 +3,11 @@ project(SfmlGraphic)
 
 set(LIB_NAME "SfmlGraphic")
 
-include(FetchContent)
-FetchContent_Declare(SFML
-    GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG 2.6.x)
-FetchContent_MakeAvailable(SFML)
+# include(FetchContent)
+# FetchContent_Declare(SFML
+#     GIT_REPOSITORY https://github.com/SFML/SFML.git
+#     GIT_TAG 2.6.x)
+# FetchContent_MakeAvailable(SFML)
 
 # Create source files list
 file(GLOB_RECURSE CPP_SOURCES CONFIGURE_DEPENDS "src/*.cpp")
@@ -37,4 +37,5 @@ add_library(${LIB_NAME} STATIC ${SOURCES})
 target_include_directories(${LIB_NAME} PUBLIC ${INCLUDES})
 
 target_link_libraries(${LIB_NAME} PRIVATE GraphicEngine)
+target_link_libraries(${LIB_NAME} PRIVATE sfml-graphics sfml-window sfml-system)
 target_link_options(${LIB_NAME} PRIVATE -g -g3)
