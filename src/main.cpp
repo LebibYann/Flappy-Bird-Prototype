@@ -20,8 +20,10 @@ int main(void)
     TextSystem textSystem(sgraphic);
     InputBoxSystem inputBoxSystem(sgraphic);
     TextureSystem textureSystem(sgraphic);
+    RectangleSystem rectangleSystem(sgraphic);
     sgraphic->openWindow(1920, 1080, "Flappy Bird");
     SceneManagerSystem sceneManager(registry, sgraphic);
+    PlayerMovementSystem playerSystem;
 
     registry.registerComponent<PositionComponent>(destroyPosition);
     registry.registerComponent<CheckboxComponent>(destroyCheckbox);
@@ -34,12 +36,19 @@ int main(void)
     registry.registerComponent<PositionComponent>(destroyInterpolation);
     registry.registerComponent<PlayerComponent>(destroyPlayer);
     registry.registerComponent<PipeComponent>(destroyPipe);
+    registry.registerComponent<LifeHitboxComponent>(destroyLifeHitbox);
+    registry.registerComponent<DamageHitboxComponent>(destroyDamageHitbox);
+    registry.registerComponent<RectangleComponent>(destroyRectangle);
 
     registry.registerEvent<InputEvent>();
 
     registry.addEventListener(InputEventListener(sgraphic));
 
     registry.addSystem(StartFrameSystem(sgraphic));
+
+    sceneManager.addScene("Game", GameScene());
+    registry.addSystem<PositionComponent, PlayerComponent>(playerSystem);
+    registry.addSystem<PositionComponent, RectangleComponent>(rectangleSystem);
     registry.addSystem<PositionComponent, TextureComponent>(textureSystem);
     registry.addSystem<PositionComponent, CheckboxComponent>(checkboxSystem);
     registry.addSystem<PositionComponent, ButtonComponent>(buttonSystem);
@@ -50,7 +59,7 @@ int main(void)
     registry.addSystem(sceneManager);
     registry.addSystem(EndFrameSystem(sgraphic));
 
-    sceneManager.changeScene(registry, "GameScene");
+    sceneManager.changeScene(registry, "Game");
 
     registry.runLoop();
     sgraphic->closeWindow();

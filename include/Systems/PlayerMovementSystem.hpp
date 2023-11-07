@@ -13,5 +13,5 @@
 class PlayerMovementSystem : public ASystem {
 
   public:
-    void operator()(Registry &registry, SparseArray<PlayerComponent> &playersArray, SparseArray<PositionComponent> &positionArray);
+    void operator()(Registry &registry, SparseArray<PositionComponent> &positionsArray, SparseArray<PlayerComponent> &playersArray);
 };

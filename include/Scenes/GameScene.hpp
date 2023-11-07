@@ -11,10 +11,11 @@
 #include "SceneManagerSystem.hpp"
 #include "GraphicEngine.hpp"
 #include "PlayerComponent.hpp"
-#include "TextureBank.hpp"
+#include "RectangleComponent.hpp"
 
 class GameScene : public IScene {
-    void loadScene(SceneManagerSystem &manager);
-    void run(SceneManagerSystem &manager);
-    void unloadScene(SceneManagerSystem &manager);
+    public:
+        void loadScene(SceneManagerSystem &manager);
+        void run(SceneManagerSystem &manager);
+        void unloadScene(SceneManagerSystem &manager);
 };

@@ -14,5 +14,8 @@
 
 #include "PipeComponent.hpp"
 #include "PlayerComponent.hpp"
+#include "RectangleComponent.hpp"
 
 #include "SceneManagerSystem.hpp"
+#include "RectangleSystem.hpp"
+#include "PlayerMovementSystem.hpp"

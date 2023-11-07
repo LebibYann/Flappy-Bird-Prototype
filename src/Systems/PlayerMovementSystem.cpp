@@ -7,15 +7,18 @@
 
 #include "PlayerMovementSystem.hpp"
 
-void PlayerMovementSystem::operator()(Registry &registry, SparseArray<PlayerComponent> &playersArray, SparseArray<PositionComponent> &positionArray)
+void PlayerMovementSystem::operator()(Registry &registry, SparseArray<PositionComponent> &positionsArray, SparseArray<PlayerComponent> &playersArray)
 {
-  Zipper<SparseArray<PlayerComponent>, SparseArray<PositionComponent>> players(playersArray, positionArray);
+  Zipper<SparseArray<PlayerComponent>, SparseArray<PositionComponent>> players(playersArray, positionsArray);
   std::deque<InputEvent> inputsQueue = registry.getEvent<InputEvent>();
-  RGraphic::RInputs_t inputs = inputsQueue.front().getInputs();
-
+  
+  RGraphic::RInputs_t inputs;
+  if (inputsQueue.empty())
+    return;
+  inputs = inputsQueue.front().getInputs();
   registry.clearEvent<InputEvent>();
-  for (auto player : players){
-    PositionComponent &position = std::get<PositionComponent&>(player);
+  for (auto it = players.begin(); it != players.end(); it++){
+    PositionComponent &position = std::get<PositionComponent&>(*it);
 
     if (inputs.shoot)
       position.move(Vector2D<double>(0, -20));

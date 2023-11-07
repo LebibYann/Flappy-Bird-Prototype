@@ -6,3 +6,5 @@
 */
 
 #pragma once
+
+#include "GameScene.hpp"

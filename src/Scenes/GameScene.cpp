@@ -15,20 +15,14 @@ void GameScene::loadScene(SceneManagerSystem &manager)
     Entity player = registry.spawnEntity();
 
     registry.addComponent<PositionComponent>(background, PositionComponent(1920 / 2, 1080 / 2));
-    TextureComponent &backgroundTexture = *registry.addComponent<TextureComponent>(background, TextureComponent());
-    TextureInfo sprite = TexturesGlobal::BANK[BIRDHOUSE_BACKGROUND];
-    backgroundTexture.addTexture(BIRDHOUSE_BACKGROUND, graphic.loadTexture(sprite.path), sprite.dimension, sprite.nframes, 7569 / 1920);
+    registry.addComponent<RectangleComponent>(background, RectangleComponent(Vector2D<double>(1920, 1080), {0, 190, 254, 0}));
 
 
     registry.addComponent<PlayerComponent>(player, PlayerComponent());
     registry.addComponent<PositionComponent>(player, PositionComponent(100, 100));
     registry.addComponent<LifeHitboxComponent>(player, LifeHitboxComponent(50, 50, 1));
 
-    TextureComponent &playerTexture = *registry.addComponent<TextureComponent>(background, TextureComponent());
-    sprite = TexturesGlobal::BANK[CUPHEAD_IDLE];
-    playerTexture.addTexture(CUPHEAD_IDLE, graphic.loadTexture(sprite.path), sprite.dimension, sprite.nframes, 1);
-    sprite = TexturesGlobal::BANK[CUPHEAD_DEAD];
-    playerTexture.addTexture(CUPHEAD_DEAD, graphic.loadTexture(sprite.path), sprite.dimension, sprite.nframes, 1);
+    registry.addComponent<RectangleComponent>(background, RectangleComponent(Vector2D<double>(50, 50), {0, 255, 0, 255}));
 }
 
 void GameScene::run(SceneManagerSystem &manager)
