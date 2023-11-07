@@ -13,10 +13,14 @@ RGraphic::SfmlGraphic::SfmlGraphic()
 
 RGraphic::SfmlGraphic::~SfmlGraphic()
 {
+    this->closeWindow();
 }
 
 void RGraphic::SfmlGraphic::openWindow(std::size_t width, std::size_t height, std::string name)
 {
+    if (!this->_window.isOpen()) {
+        this->_window.create(sf::VideoMode(width, height), name.c_str());
+    }
 }
 
 void RGraphic::SfmlGraphic::toggleFullscreen(bool fullscreen, int selectedResolution, std::string name)
@@ -33,18 +37,25 @@ void RGraphic::SfmlGraphic::setVolume(double volume)
 
 bool RGraphic::SfmlGraphic::windowShouldClose()
 {
+    if (this->_window.isOpen())
+        return (false);
+    this->_window.pollEvent(this->_event);
+    return (this->_event.type == sf::Event::Closed);
 }
 
 void RGraphic::SfmlGraphic::closeWindow()
 {
+    this->_window.close();
 }
 
 void RGraphic::SfmlGraphic::startFrame()
 {
+    this->_window.clear(sf::Color(0, 0, 0, 255));
 }
 
 void RGraphic::SfmlGraphic::endFrame()
 {
+    this->_window.display();
 }
 
 void RGraphic::SfmlGraphic::drawText(RVect2_t position, std::string text, uint16_t fontSize, uint16_t outlineSize, RColor_t color, RColor_t outlineColor)
@@ -53,6 +64,13 @@ void RGraphic::SfmlGraphic::drawText(RVect2_t position, std::string text, uint16
 
 void RGraphic::SfmlGraphic::drawRectangle(RRectangle_t rectangle, RColor_t color)
 {
+    sf::RectangleShape sqr;
+    sf::Vector2f pos;
+
+    sqr.setFillColor(sf::Color(color.r, color.g, color.b, color.a));
+    sqr.setPosition(sf::Vector2f(rectangle.x, rectangle.y));
+    sqr.setSize(sf::Vector2f(rectangle.width, rectangle.height));
+    this->_window.draw(sqr);
 }
 
 void RGraphic::SfmlGraphic::drawCheckbox(RRectangle_t rectangle, std::string text, bool &checked)

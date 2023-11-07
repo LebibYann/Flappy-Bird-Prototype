@@ -10,7 +10,6 @@
 #include "GameMacro.hpp"
 
 #include "IComponent.hpp"
-#include "HealthComponent.hpp"
 #include "PositionComponent.hpp"
 #include "Vector2D.hpp"
 #include "VelocityComponent.hpp"

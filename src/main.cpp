@@ -5,16 +5,13 @@
 ** main
 */
 
-#include "Registry.hpp"
-#include "GraphicEngine.hpp"
-#include "GameEngine.hpp"
-#include "Scenes.hpp"
-#include "SfmlGraphic.hpp"
+#include "FlappyBird.hpp"
 
 int main(void)
 {
     Registry registry;
-    std::shared_ptr<RGraphic::IGraphic> sgraphic = std::make_shared<RGraphic::SfmlGraphic>(RGraphic::SfmlGraphic());
+    std::shared_ptr<RGraphic::IGraphic> sgraphic;
+    sgraphic.reset(new RGraphic::SfmlGraphic());
     RGraphic::RInputs_t inputs;
     CheckboxSystem checkboxSystem(sgraphic);
     ButtonSystem buttonSystem(sgraphic);
@@ -35,6 +32,8 @@ int main(void)
     registry.registerComponent<InputBoxComponent>(destroyInputBox);
     registry.registerComponent<TextureComponent>(destroyTexture);
     registry.registerComponent<PositionComponent>(destroyInterpolation);
+    registry.registerComponent<PlayerComponent>(destroyPlayer);
+    registry.registerComponent<PipeComponent>(destroyPipe);
 
     registry.registerEvent<InputEvent>();
 
@@ -50,8 +49,8 @@ int main(void)
     registry.addSystem<PositionComponent, DropDownButtonComponent>(dropDownButtonSystem);
     registry.addSystem(sceneManager);
     registry.addSystem(EndFrameSystem(sgraphic));
-
-    sceneManager.changeScene(registry, "TitleMenu");
+    
+    sceneManager.changeScene(registry, "GameScene");
 
     registry.runLoop();
     sgraphic->closeWindow();

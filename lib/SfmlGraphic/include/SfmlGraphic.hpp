@@ -44,5 +44,8 @@ namespace RGraphic {
             void updateMusic(RGraphic::RMusic rmusic);
             void unloadMusic(RGraphic::RMusic rmusic);
             RGraphic::RInputs_t getInputs();
+        protected:
+            sf::RenderWindow _window;
+            sf::Event _event;
     };
 };
