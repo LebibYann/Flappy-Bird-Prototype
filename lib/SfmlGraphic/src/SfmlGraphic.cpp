@@ -123,5 +123,14 @@ void RGraphic::SfmlGraphic::unloadMusic(RGraphic::RMusic rmusic)
 
 RGraphic::RInputs_t RGraphic::SfmlGraphic::getInputs()
 {
-    return (RGraphic::RInputs_t());
+    RGraphic::RInputs_t inputs;
+
+    this->_window.pollEvent(this->_event);
+    inputs.down =  sf::Keyboard::isKeyPressed(sf::Keyboard::S);
+    inputs.up = sf::Keyboard::isKeyPressed(sf::Keyboard::Z);
+    inputs.left = sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
+    inputs.right = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
+    inputs.shoot = sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+    inputs.pause = sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
+    return (inputs);
 }
